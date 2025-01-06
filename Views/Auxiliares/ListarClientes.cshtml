@@ -1,0 +1,499 @@
+﻿
+@{
+    ViewData["Title"] = "ListarClientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Listar Clientes</h1>
+<link href="~/assets/css/style.css" rel="stylesheet" />
+<link href="~/assets/css/style-preset.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista de clientees</h5>
+                <small>
+                    Tabla dinámica que muestra la información de los clientees.
+                </small>
+            </div>
+            <div class="card-body">
+                <div class="dt-responsive">
+                    <table id="tabla-clientes" class="table table-striped table-bordered nowrap  tbl-product">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Razón Social</th>
+                                <th>Celular</th>
+                                <th>NRC</th>
+                                <th>NIT</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Detalles del cliente -->
+<div class="modal fade" id="modalDetallecliente" tabindex="-1" role="dialog" aria-labelledby="modalDetalleclienteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="modalDetalleclienteLabel">Detalles del cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoDetalleCliente">
+                    <!-- Aquí se insertarán los detalles -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar los datos de una persona juridica -->
+<div class="modal fade" id="modalEditarJuridico" tabindex="-1" role="dialog" aria-labelledby="modalEditarJuridicoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="modalEditarJuridicoLabel">Editar cliente Jurídico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarJuridico">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtRazonSocialJuridica" class="form-label">Razón Social</label>
+                                <input type="text" class="form-control" id="txtRazonSocialJuridica">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNombrecomercialJuridica" class="form-label">Nombre Comercial</label>
+                                <input type="text" class="form-control" id="txtNombrecomercialJuridica">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtRepresentanteJuridico" class="form-label">Representante Legal</label>
+                                <input type="text" class="form-control" id="txtRepresentanteJuridico">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtDuiRepresentateJuridico" class="form-label">DUI Representante Legal</label>
+                                <input type="text" class="form-control" id="txtDuiRepresentateJuridico">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtClienteJuridico" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="txtClienteJuridico">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtCelularJuridico" class="form-label">Celular</label>
+                                <input type="text" class="form-control" id="txtCelularJuridico">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNrcJuridico" class="form-label">NRC</label>
+                                <input type="text" class="form-control" id="txtNrcJuridico">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNitJuridico" class="form-label">NIT</label>
+                                <input type="text" class="form-control" id="txtNitJuridico">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnGuardarJuridico">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar los datos de una persona Natural -->
+<div class="modal fade" id="modalEditarNatural" tabindex="-1" role="dialog" aria-labelledby="modalEditarNaturalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="modalEditarNaturalLabel">Editar cliente Natural</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarNatural">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNombreNatural" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombreNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtApellidosNatural" class="form-label">Apellidos</label>
+                                <input type="text" class="form-control" id="txtApellidosNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNombreComercialNatural" class="form-label">Nombre Comercial</label>
+                                <input type="text" class="form-control" id="txtNombreComercialNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtDuiNatural" class="form-label">DUI</label>
+                                <input type="text" class="form-control" id="txtDuiNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtClienteTelNatural" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="txtClienteTelNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtCelularNatural" class="form-label">Celular</label>
+                                <input type="text" class="form-control" id="txtCelularNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNrcNatural" class="form-label">NRC</label>
+                                <input type="text" class="form-control" id="txtNrcNatural">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtNitNatural" class="form-label">NIT</label>
+                                <input type="text" class="form-control" id="txtNitNatural">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnGuardarNatural">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="name" value="" id="txtIdcliente" />
+<script src="~/assets/js/plugins/datatables.bootstrap5.min.js"></script>
+<script>
+    var listaClientes;
+    $(document).ready(function () {
+
+        listaClientes = $('#tabla-clientes').DataTable({
+            ajax: {
+                url: '/Auxiliares/ListarClientesClt',
+                type: 'GET',
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: 'idClienteClt',
+                    visible: false
+                },
+                { data: 'nombres' },
+                { data: 'apellidos' },
+                { data: 'nombreRazonSocial' },
+                { data: 'celular' },
+                { data: 'nrc' },
+                {
+                    data: null,
+                    render: function (data) {
+                        return `${data.nitCliente}
+                                <div class="prod-action-links">
+                                                    <ul class="list-inline me-auto mb-0">
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                                                        <a
+                                                              href="#" onclick="verDetalle('${data.idClienteClt}')"
+                                                          class="avtar avtar-xs btn-link-secondary btn-pc-default"
+                                                          data-bs-toggle="offcanvas"
+                                                          data-bs-target="#productOffcanvas"
+                                                        >
+                                                          <i class="ti ti-eye f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">
+                                                              <a href="#" onclick="editarcliente('${data.idClienteClt}')"
+                                                          class="avtar avtar-xs btn-link-success btn-pc-default">
+                                                          <i class="ti ti-edit-circle f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                                                                <a href="#" onclick="eliminarClientes('${data.idClienteClt}')"
+                                                            class="avtar avtar-xs btn-link-danger btn-pc-default">
+                                                          <i class="ti ti-trash f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                            `
+                    }
+                }
+            ],
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+            }
+        });
+    });
+
+    function verDetalle(id) {
+
+        const cliente = listaClientes.rows().data().toArray().find(p => p.idClienteClt == id);
+
+        if (cliente) {
+            const contenido = `
+                    <p><strong>Nombres:</strong> ${cliente.nombres || 'N/A'}</p>
+                    <p><strong>Apellidos:</strong> ${cliente.apellidos || 'N/A'}</p>
+                    <p><strong>¿Es Persona Jurídica?:</strong> ${cliente.personaJuridica ? 'Sí' : 'No'}</p>
+                    <p><strong>Razón Social:</strong> ${cliente.nombreRazonSocial || 'N/A'}</p>
+                    <p><strong>Nombre Comercial:</strong> ${cliente.nombreComercial || 'N/A'}</p>
+                    <p><strong>DUI Cliente:</strong> ${cliente.duiCliente || 'N/A'}</p>
+                    <p><strong>Representante Legal:</strong> ${cliente.representanteLegal || 'N/A'}</p>
+                    <p><strong>DUI Representante:</strong> ${cliente.duiRepresentanteLegal || 'N/A'}</p>
+                    <p><strong>Teléfono:</strong> ${cliente.telefonoCliente || 'N/A'}</p>
+                    <p><strong>Celular:</strong> ${cliente.celular || 'N/A'}</p>
+                    <p><strong>NRC:</strong> ${cliente.nrc || 'N/A'}</p>
+                    <p><strong>NIT:</strong> ${cliente.nitCliente || 'N/A'}</p>
+                `;
+            $('#contenidoDetalleCliente').html(contenido);
+            $('#modalDetallecliente').modal('show');
+        } else {
+            alert('cliente no encontrado.');
+        }
+    };
+
+    function editarcliente(id) {
+
+        const cliente = listaClientes.rows().data().toArray().find(p => p.idClienteClt == id);
+
+        if (cliente) {
+            if (cliente.personaJuridica) {
+                // Llenar datos en el modal Jurídico
+                $('#txtRazonSocialJuridica').val(cliente.nombreRazonSocial || '');
+                $('#txtNombrecomercialJuridica').val(cliente.nombreComercial || '');
+                $('#txtRepresentanteJuridico').val(cliente.representanteLegal || '');
+                $('#txtDuiRepresentateJuridico').val(cliente.duiRepresentanteLegal || '');
+                $('#txtClienteJuridico').val(cliente.telefonoCliente || '');
+                $('#txtCelularJuridico').val(cliente.celular || '');
+                $('#txtNrcJuridico').val(cliente.nrc || '');
+                $('#txtNitJuridico').val(cliente.nitCliente || '');
+                $('#txtIdcliente').val(id);
+                $('#modalEditarJuridico').modal('show');
+            } else {
+                // Llenar datos en el modal Natural
+                $('#txtNombreNatural').val(cliente.nombres || '');
+                $('#txtApellidosNatural').val(cliente.apellidos || '');
+                $('#txtNombreComercialNatural').val(cliente.nombreComercial || '');
+                $('#txtDuiNatural').val(cliente.duiCliente || '');
+                $('#txtClienteTelNatural').val(cliente.telefonoCliente || '');
+                $('#txtCelularNatural').val(cliente.celular || '');
+                $('#txtNrcNatural').val(cliente.nrc || '');
+                $('#txtNitNatural').val(cliente.nitCliente || '');
+                $('#txtIdcliente').val(id);
+                $('#modalEditarNatural').modal('show');
+            }
+        } else {
+            alert('cliente no encontrado.');
+        }
+    };
+
+    $('#btnGuardarJuridico').click(function () {
+        const cliente = {
+            flag: "update",
+            personaJuridica: true,
+            nombreRazonSocial: $('#txtRazonSocialJuridica').val(),
+            nombreComercial: $('#txtNombrecomercialJuridica').val(),
+            representanteLegal: $('#txtRepresentanteJuridico').val(),
+            duiRepresentanteLegal: $('#txtDuiRepresentateJuridico').val(),
+            telefonoCliente: $('#txtClienteJuridico').val(),
+            celular: $('#txtCelularJuridico').val(),
+            nrc: $('#txtNrcJuridico').val(),
+            nitcliente: $('#txtNitJuridico').val(),
+            idClienteClt: $("#txtIdcliente").val()
+        };
+
+        $.ajax({
+            url: "/Auxiliares/EditarClienteInternos",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify([cliente]),
+            success: function (data) {
+
+                if (data.success) {
+                    listaClientes.ajax.reload(null, false);
+                    $('#modalEditarJuridico').modal('hide');
+                    Swal.fire({
+                        icon: "success",
+                        title: "cliente eliminado",
+                        text: data.message,
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al registrar",    
+                        text: data.message,
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Ocurrió un error al intentar registrar el cliente.",
+                    customClass: {
+                        popup: 'custom-border'
+                    }
+                });
+                console.error("Error:", error);
+            }
+        });
+    });
+
+    $('#btnGuardarNatural').click(function () {
+        const cliente = {
+            flag: "update",
+            personaJuridica: false,
+            nombres: $('#txtNombreNatural').val(),
+            apellidos: $('#txtApellidosNatural').val(),
+            nombreComercial: $('#txtNombreComercialNatural').val(),
+            duiCliente: $('#txtDuiNatural').val(),
+            telefonoCliente: $('#txtClienteTelNatural').val(),
+            celular: $('#txtCelularNatural').val(),
+            nrc: $('#txtNrcNatural').val(),
+            nitcliente: $('#txtNitNatural').val(),
+            idClienteClt: $("#txtIdcliente").val()
+        };
+
+        $.ajax({
+            url: "/Auxiliares/EditarClienteInternos",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify([cliente]),
+            success: function (data) {
+
+                if (data.success) {
+                    listaClientes.ajax.reload(null, false);
+                    $('#modalEditarNatural').modal('hide');
+                    Swal.fire({
+                        icon: "success",
+                        title: "cliente eliminado",
+                        text: data.message,
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al registrar",
+                        text: data.message,
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Ocurrió un error al intentar registrar el cliente.",
+                    customClass: {
+                        popup: 'custom-border'
+                    }
+                });
+                console.error("Error:", error);
+            }
+        });
+    });
+
+    function eliminarClientes(id) {
+        Swal.fire({
+            title: "Deseas eliminar?",
+            text: "El dato se eliminara de la base!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirmo!",
+            customClass: {
+                popup: 'custom-border'
+            }
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                const cliente = {
+                    flag: "delete",
+                    idClienteClt: id
+                };
+                // Enviar datos al servidor
+                $.ajax({
+                    url: "/Auxiliares/Eliminarcliente",
+                    method: "DELETE",
+                    contentType: "application/json",
+                    data: JSON.stringify([cliente]),
+                    success: function (data) {
+                        if (data.success) {
+                            listaClientes.ajax.reload(null, false);
+                            Swal.fire({
+                                icon: "success",
+                                title: "Cliente eliminado",
+                                text: data.message, 
+                                customClass: {
+                                    popup: 'custom-border'
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error al registrar",
+                                text: data.message,
+                                customClass: {
+                                    popup: 'custom-border'
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Ocurrió un error al intentar registrar el Cliente.",
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                        console.error("Error:", error);
+                    }
+                });
+            }
+        });
+    };
+</script>

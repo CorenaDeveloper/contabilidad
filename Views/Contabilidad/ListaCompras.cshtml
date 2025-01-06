@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "ListaCompras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/assets/css/style.css" rel="stylesheet" />
+<link href="~/assets/css/style-preset.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista de Compras</h5>
+                <small>
+                    Tabla dinámica que muestra la información de las compras.
+                </small>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="txtFechainicio" class="form-label">Inicio</label>
+                            <input class="form-control form-control-sm" id="txtFechainicio" type="date"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="txtFechaFin" class="form-label">Fin</label>
+                            <input class="form-control form-control-sm" id="txtFechaFin" type="date" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="txtTipoFecha" class="form-label">Tipo Busqueda</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtTipoFecha">
+                                <option selected="" value="1">Fecha Emision de Documento</option>
+                                <option value="2">Fecha Presentacion de Documento</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="col">
+                        <div style="padding: 25px 0px 0px 0px">
+                            <button type="button" id="btnBuscarCompra" onclick="listarComprasV();" class="btn btn-primary mb-4"><span class="fas fa-search"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="dt-responsive">
+                    <table id="tabla-comrpas" class="table table-striped table-bordered nowrap  tbl-product">
+                        <thead>
+                            <tr>
+                                <th>fecha Doc</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/js/plugins/datatables.bootstrap5.min.js"></script>
+<script>
+    var listaCompras;
+
+    function listarComprasV() {
+        var tipoFecha = $("#txtTipoFecha").val();
+        var fechaInicio = $("#txtFechainicio").val();
+        var fechaFin = $("#txtFechaFin").val();
+
+
+        if ($.fn.dataTable.isDataTable('#tabla-compras')) {
+            $('#tabla-compras').DataTable().clear().destroy();
+            $('#tabla-compras tbody').empty();
+        }
+
+        listaCompras = $('#tabla-comrpas').DataTable({
+            ajax: {
+                url: '/Compras/ListarCompras?tipoFecha=' + tipoFecha + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin,
+                type: 'GET',
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'fechaCreacion' },
+                {
+                    data: null,
+                    render: function (data) {
+                        return `${data.idDocCompra}
+                                <div class="prod-action-links">
+                                                    <ul class="list-inline me-auto mb-0">
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                                                        <a
+                                                           href="#" onclick="verDetalle('${data.idDocCompra}')"
+                                                          class="avtar avtar-xs btn-link-secondary btn-pc-default"
+                                                          data-bs-toggle="offcanvas"
+                                                          data-bs-target="#productOffcanvas"
+                                                        >
+                                                          <i class="ti ti-eye f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">
+                                                           <a href="#" onclick="editarCompra('${data.idDocCompra}')"
+                                                          class="avtar avtar-xs btn-link-success btn-pc-default">
+                                                          <i class="ti ti-edit-circle f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                      <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                                                            <a href="#" onclick="eliminarCompra('${data.idDocCompra}')"
+                                                            class="avtar avtar-xs btn-link-danger btn-pc-default">
+                                                          <i class="ti ti-trash f-18"></i>
+                                                        </a>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                            `
+                    }
+                }
+            ],
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+            }
+        });
+    }
+</script>

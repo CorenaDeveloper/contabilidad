@@ -1,0 +1,241 @@
+﻿@{
+    var permisosJson = User.Claims.FirstOrDefault(c => c.Type == "Permisos")?.Value;
+    var permisos = Newtonsoft.Json.JsonConvert.DeserializeObject<List<contabsv.Models.ModuloesModel>>(permisosJson ?? "[]");
+}
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+<head>
+    <title>Contabsv</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description"
+          content="Light Able admin and dashboard template offer a variety of UI elements and pages, ensuring your admin panel is both fast and effective." />
+    <meta name="author" content="phoenixcoded" />
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="~/assets/images/favicon.svg" type="image/x-icon" />
+    <!-- [Google Font : Public Sans] icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="~/assets/fonts/tabler-icons.min.css">
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="~/assets/fonts/feather.css">
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="~/assets/fonts/fontawesome.css">
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="~/assets/fonts/material.css">
+
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="~/assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="~/assets/css/style-preset.css">
+    <link href="~/assets/css/plugins/datatables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/responsive.bootstrap5.min.css" rel="stylesheet" />
+
+    <link href="~/assets/js/plugins/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/js/plugins/select2-bootstrap-5-theme/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <link href="~/assets/js/plugins/parsley/parsley.min.css" rel="stylesheet" />
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-fluid {
+            flex: 1; /* Esto asegura que el contenedor use el espacio restante */           
+        }
+
+        .pc-footer {
+            flex-shrink: 0; /* Asegura que el footer no colapse */
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu .dropdown-menu {
+                top: 0px;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+            }
+
+            .dropdown-submenu:hover .dropdown-menu {
+                display: block;
+            }
+
+        .custom-border {
+            border: 1px solid #cccccc; 
+            border-radius: 10px; /* Opcional: esquinas redondeadas */
+        }
+    </style>
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+<body class="container-fluid" data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light" data-pc-direction="ltr">
+    <!-- [ Pre-loader ] End -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Contabsv</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Compras
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <label class="dropdown-item dropdown-toggle">Registor de Compras</label>
+                                <ul class="dropdown-menu">
+                                    @if (permisos.Any(p => p.descripcion == "Compras" && p.activo))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Compras", "Contabilidad")">Compras CCF (Internas)</a>
+                                        </li>
+                                    }
+                                    @if (permisos.Any(p => p.descripcion == "Compras" && p.activo))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Compras", "Contabilidad")">Compras DTE (Json)</a>
+                                        </li>
+                                    }
+                                    @if (permisos.Any(p => p.descripcion == "Compras" && p.activo))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Compras", "Contabilidad")">Compras de Importación/Internacionales</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            @if (permisos.Any(p => p.descripcion == "ListaCompras" && p.activo))
+                            {
+                                <li><a class="dropdown-item" href="@Url.Action("ListaCompras", "Contabilidad")">Lista de Compras</a></li>
+                            }
+                            <li><a class="dropdown-item" href="#">Otras Compras</a></li> 
+                        </ul>                                            
+                    </li>  
+                    <li class="nav-item">
+                        @if (permisos.Any(p => p.descripcion == "Ventas" && p.activo))
+                        {
+                            <a class="nav-link" href="@Url.Action("Ventas", "Home")">Ventas</a>
+                        }
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tablas Auxiliares
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <label class="dropdown-item dropdown-toggle">Proveedores</label>
+                                <ul class="dropdown-menu">
+                                    @if (permisos.Any(p => p.descripcion == "ListarProvedores" && p.activo))
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("ListarProvedores", "Auxiliares")">Lista de Proveedores</a></li>
+                                    }
+                                    @if (permisos.Any(p => p.descripcion == "Proveedores" && p.activo))
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("Proveedores", "Auxiliares")">Registrar Proveedores</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <label class="dropdown-item dropdown-toggle">Clientes</label>
+                                <ul class="dropdown-menu">
+                                    @if (permisos.Any(p => p.descripcion == "ListarClientes" && p.activo))
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("ListarClientes", "Auxiliares")">Lista de Clientes</a></li>
+                                    }
+                                    @if (permisos.Any(p => p.descripcion == "Clientes" && p.activo))
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("Clientes", "Auxiliares")">Registrar Clientes</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            @* <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> *@
+                            
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" method="post" action="/Home/Logout">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            @Html.AntiForgeryToken()
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Perfil
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                @if (permisos.Any(p => p.descripcion == "Perfil" && p.activo))
+                                {
+                                    <li><a class="dropdown-item" href="@Url.Action("Perfil", "Home")">Configuración de Perfil</a></li>
+                                }
+                                <li>
+                                    <button type="submit" class="dropdown-item">Salir</button>
+                                 </li>                            
+                            </ul>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Required Js -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/assets/js/plugins/popper.min.js"></script>
+    <script src="~/assets/js/plugins/simplebar.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/assets/js/fonts/custom-font.js"></script>
+    <script src="~/assets/js/pcoded.js"></script>
+    <script src="~/assets/js/plugins/feather.min.js"></script>
+    <script src="~/assets/js/plugins/datatables.min.js"></script>
+
+    <script src="~/assets/js/plugins/select2/select2.full.min.js"></script>
+    <script src="~/assets/js/plugins/datatables.responsive.min.js"></script>
+    <script src="~/assets/js/plugins/sweetalert2.all.min.js"></script>
+    <script src="~/assets/js/plugins/inputmask/inputmask.min.js"></script>
+    <script src="~/assets/js/plugins/parsley/parsley.min.js"></script>
+
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+
+    <script>layout_change('light');</script>
+    <script>layout_sidebar_change('light');</script>
+    <script>change_box_container('false');</script>
+    <script>layout_caption_change('true');</script>
+    <script>layout_rtl_change('false');</script>
+    <script>preset_change("preset-1");</script>
+    <script>
+        /* MENSAJE DE CONFIRMACIÓN EMERGENTE Y AUTOOCULTABLE EN POST/PUT CORRECTO ------------- BEGIN */
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+        /* MENSAJE DE CONFIRMACIÓN EMERGENTE Y AUTOOCULTABLE EN POST/PUT CORRECTO ------------- END */
+    </script>
+</body>
+<!-- [Body] end -->
+</html>

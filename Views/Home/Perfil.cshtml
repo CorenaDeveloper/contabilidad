@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewData["Title"] = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <!-- [ Row 1 ] start -->
+    <div class="col-md-6 col-xl-4">
+        <div class="card user-card">
+            <div class="card-body">
+                <div class="user-cover-bg">
+                    <img src="../assets/images/application/img-user-cover-1.jpg" alt="image" class="img-fluid">
+                    <div class="cover-data">
+                        <div class="d-inline-flex align-items-center">
+                            <span id="txtCorreoCliente"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-avtar card-user-image">
+                    <img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="img-thumbnail rounded-circle ">
+                    <i class="chat-badge bg-success"></i>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1"><span id="txtNombre"></span></h6>
+                        <p class="text-muted text-sm mb-0"><span id="txtNombreComercial"></span> <a href="#" class="text-primary"></a></p>
+                    </div>
+                </div>
+                <div class="row g-3 my-3 text-center">
+                    <div class="col-6">
+                        <h5 class="mb-0"><span id="txtNitCliente"></span></h5>
+                        <small class="text-muted">NIT</small>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="mb-0"><span id="txtNRCCliente"></span></h5>
+                        <small class="text-muted">NRC</small>
+                    </div>
+                </div>
+                <div class="saprator my-3">
+                    <span>Otros Datos</span>
+                </div>
+                <div class="text-center">
+                    <span class="badge bg-light-secondary border rounded-pill border-secondary bg-transparent f-14 me-1 mt-1"><span id="txtCelular"></span></span>
+                    <span class="badge bg-light-secondary border rounded-pill border-secondary bg-transparent f-14 me-1 mt-1"><span id="txtTelefono"></span></span>
+                    <span class="badge bg-light-secondary border rounded-pill border-secondary bg-transparent f-14 me-1 mt-1"><span id="txtPersonaJuridica"></span></span>
+                </div>
+                <div class="saprator my-3">
+                    <span>Dirección</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span id="txtDireccionCliente"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-8">
+        <div class="card">
+            <div class="card-body position-relative">
+                <div class="text-center mt-3">
+                    <div class="chat-avtar d-inline-flex mx-auto">
+                        <img class="rounded-circle img-fluid wid-90 img-thumbnail" src="../assets/images/user/avatar-1.jpg" alt="User image">
+                        <i class="chat-badge bg-danger me-2 mb-2"></i>
+                    </div>
+                    <form id="formEditarNatural">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtNombreNatural" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreNatural">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtApellidosNatural" class="form-label">Apellidos</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtApellidosNatural">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtNombreComercialNatural" class="form-label">Nombre Comercial</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreComercialNatural">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label for="txtClienteTelNatural" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtClienteTelNatural">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label for="txtCelularNatural" class="form-label">Celular</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtCelularNatural">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label for="txtDuiNatural" class="form-label">DUI</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDuiNatural">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label for="txtNrcNatural" class="form-label">NRC</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNrcNatural">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtNitNatural" class="form-label">NIT</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNitNatural">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtSector" class="form-label">Sector (Renta)</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtSectorNatural">
+                                        <option value="1">Industria</option>
+                                        <option value="2">Comercio</option>
+                                        <option value="3">Agropecuaria</option>
+                                        <option value="4">Servicios, Profesiones, Artes y Oficios</option>
+                                        <option value="9">Excepciones (Instituciones públicas, no inscritos a IVA, operaciones no deducibles para renta, entre otros.)</option>
+                                        <option value="0"> Cuando se trate de periodos tributarios  anteriores a febrero de 2024</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="txtDireccionNatural" class="form-label">Dirección</label>
+                                    <textarea class="form-control form-control-sm" id="txtDireccionNatural"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" id="btnActualizarDatos" class="btn btn-primary mb-4">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>    
+    </div>
+    
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Home/ConfiguracionCliente',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data[0])
+                if (data[0].personaJuridica === false) {
+                    $("#txtNombre").html(data[0].nombres + ' ' + data[0].apellidos);
+                    $("#txtPersonaJuridica").html("Natural");
+
+                    $("#txtNombreNatural").val(data[0].nombres);
+                    $("#txtApellidosNatural").val(data[0].apellidos);
+                    $("#txtNombreComercialNatural").val(data[0].nombreComercial);
+                    $("#txtDuiNatural").val(data[0].duiCliente);
+                    $("#txtClienteTelNatural").val(data[0].telefonoCliente);
+                    $("#txtCelularNatural").val(data[0].celular);
+                    $("#txtNrcNatural").val(data[0].nrc);
+                    $("#txtNitNatural").val(data[0].nitCliente);
+                    $("#txtSectorNatural").val(data[0].codSector);
+                    $("#txtDireccionNatural").val(data[0].direccion);
+                } else {
+                    $("#txtNombre").html(data[0].nombreRazonSocial);
+                    $("#txtPersonaJuridica").html("Juridica");
+                }
+
+                $("#txtCorreoCliente").html(data[0].correo);
+                $("#txtNombreComercial").html(data[0].nombreComercial);
+                $("#txtDireccionCliente").html(data[0].direccion);
+                $("#txtNitCliente").html(data[0].nitCliente);
+                $("#txtNRCCliente").html(data[0].nrc);
+                $("#txtCelular").html((data[0].celular).trim() != "" ? data[0].celular : "No dispobible");
+                $("#txtTelefono").html((data[0].telefonoCliente).trim() != "" ? data[0].txtTelefono : "No disponible");
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al obtener proveedores:", error);
+            }
+        });
+
+        
+    });
+</script>

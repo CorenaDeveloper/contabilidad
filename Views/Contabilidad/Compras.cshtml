@@ -1,0 +1,312 @@
+﻿
+@{
+    ViewData["Title"] = "Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Registro de Compra</h5>
+    </div>
+    <div class="card-body">
+        <form id="formCompras" autocomplete="off" data-parsley-validate>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtFechaDocumento" class="form-label">Fecha Documento</label>
+                        <input class="form-control form-control-sm" id="txtFechaDocumento" type="date" required />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtSerie" class="form-label">Serie</label>
+                        <input class="form-control form-control-sm" id="txtSerie"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="txtNumeroDocumento" class="form-label">N° Documento</label>
+                        <input class="form-control form-control-sm" id="txtNumeroDocumento"
+                               placeholder="Dato requerido" required />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtProveedor" class="form-label">Proveedor</label>
+                        <select class="form-select form-select-sm selectpicker" id="selectProveedor" name="state" required="required"
+                                data-parsley-required-message="Proveedor requerido" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtFechaDeclarar" class="form-label">Fecha a Declarar</label>
+                        <input class="form-control form-control-sm" id="txtFechaDeclarar" type="date" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="txtClase" class="form-label">Clase Documento</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtClase">
+                            <option selected="" value="1"> IMPRESO POR IMPRENTA O TIQUETES</option>
+                            <option value="2">FORMULARIO UNICO</option>
+                            <option value="3">OTROS</option>
+                            <option value="4">DOCUMENTO TRIBUTARIO ELECTRONICO (DTE)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtTipoDoc" class="form-label">Tipo Documento</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtTipoDoc">
+                            <option selected="" value="03">COMPROBANTE DE CRÉDITO FISCAL</option>
+                            <option value="05">NOTA DE CRÉDITO</option>
+                            <option value="06">NOTA DE DÉBITO</option>
+                            <option value="11">FACTURA DE EXPORTACIÓN</option>
+                            <option value="12">DECLARACIÓN DE MERCANCÍAS</option>
+                            <option value="13">MANDAMIENTO DE INGRESO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtTipoOperacion" class="form-label">Tipo de Operación (Renta)</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtTipoOperacion">
+                            <option selected="" value="1">Gravada</option>
+                            <option value="2">No gravada o exenta</option>
+                            <option value="3">Excluido o no constituye Renta</option>
+                            <option value="4">Mixta (Contribuyentes que gozan de Regímenes Especiales con incentivos fiscales)</option>
+                            <option value="9">Excepciones (Instituciones públicas, no inscritos a IVA, operaciones no deducibles para renta, entre otros.)</option>
+                            <option value="0">Cuando se trate de periodos tributarios  anteriores a febrero de 2024</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtCasificacion" class="form-label">Clasificación (Renta)</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtCasificacion">
+                            <option value="1">Costo</option>
+                            <option selected="" value="2">Gasto</option>
+                            <option value="9">Excepciones (Instituciones públicas, no inscritos a IVA, operaciones no deducibles para renta, entre otros.)</option>
+                            <option value="0">Cuando se trate de periodos tributarios  anteriores a febrero de 2024</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="txtGastoCosto" class="form-label">Tipo de Costo / Gasto (Renta)</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="txtGastoCosto">
+                            <option value="1">Gasto de Venta sin Donación</option>
+                            <option selected="" value="2">Gasto de Administración sin Donación</option>
+                            <option value="3">Gastos Financieros sin Donación</option>
+                            <option value="4">Costo Artículos Producidos/Comprados Importaciones/Internaciones</option>
+                            <option value="5">Costo Artículos Producidos/Comprados Interno</option>
+                            <option value="6">Costo Indirectos de Fabricación</option>
+                            <option value="7">Mano de obra</option>
+                            <option value="9">Excepciones (Instituciones públicas, no inscritos a IVA, operaciones no deducibles para renta, entre otros.)</option>
+                            <option value="0">Cuando se trate de periodos tributarios  anteriores a febrero de 2024</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <br />
+                        <input class="form-check-input" id="txtCombustible" type="checkbox" value="" />
+                        <label class="form-check-label" for="txtCombustible">Combustible</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtComprasExentas" class="form-label">Exentas</label>
+                            <input class="form-control form-control-sm" id="txtComprasExentas"
+                             data-input-mask='{"alias":"decimal","digits":2,"rightAlign":false,"jitMasking":false}' 
+                             type="text"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="txtComprasIngGravadas" class="form-label">Internas Gravadas</label>
+                            <input class="form-control form-control-sm" id="txtComprasIngGravadas"
+                            data-input-mask='{"alias":"decimal","digits":2,"rightAlign":false,"jitMasking":false}'
+                            data-parsley-required-message="Dato requerido" required type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3 text-end">
+                                <label for="txtTotalCredito" class="form-label">Credito Fiscal</label>
+                            </div>
+                        </div> 
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input class="form-control form-control-sm" id="txtTotalCredito" type="text" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3 text-end">
+                                <label for="txtTotalCompra" class="form-label">Total Compra</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input class="form-control form-control-sm" id="txtTotalCompra" type="text" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3 text-end">
+                                <label for="txtTotalDocumento" class="form-label">Total Documento</label>
+                            </div>
+                        </div> 
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input class="form-control form-control-sm" id="txtTotalDocumento" type="text" disabled="disabled" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end mb-3">
+                <button type="button" id="btnRegistrar" class="btn btn-primary mb-4">Registrar</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var idCliente = '@ViewData["IdCliente"]';
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Auxiliares/ListarProveedores',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var selectProveedor = $('#selectProveedor');
+                selectProveedor.empty();
+                selectProveedor.append('<option value="">Seleccione</option>');
+                $.each(data, function (index, proveedor) {
+                    selectProveedor.append(
+                        $('<option></option>')
+                            .val(proveedor.idProveedor)
+                            .text(proveedor.nitProveedor + '- ' + proveedor.nombreComercial)
+                            .attr('data-nit', proveedor.nitProveedor)
+                            .attr('data-nrc', proveedor.nrc)
+                            .attr('data-nombre', proveedor.nombreComercial)
+                    );
+                });
+
+                $('#selectProveedor').select2({
+                    theme: "bootstrap-5"
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al obtener proveedores:", error);
+            }
+        });
+
+        $('#txtComprasIngGravadas, #txtComprasExentas').on('keyup', function () {
+            var comprasInternas = parseFloat($('#txtComprasIngGravadas').val()) || 0;
+            var comprasExentas = parseFloat($('#txtComprasExentas').val()) || 0;
+
+
+            var creditoFiscal = comprasInternas * 0.13;
+            var totalCompra = comprasInternas + comprasExentas;
+            var totalDocumento = totalCompra + creditoFiscal;
+            $('#txtTotalCredito').val(creditoFiscal.toFixed(2));
+            $('#txtTotalCompra').val(totalCompra.toFixed(2));
+            $('#txtTotalDocumento').val(totalDocumento.toFixed(2));
+        });
+
+        $("#btnRegistrar").click(function () {
+            var isValid = $('#formCompras').parsley().validate();
+            var combustible = $('#txtCombustible').is(':checked');
+
+            if (isValid) {
+                var selectedOption = $('#selectProveedor option:selected');
+                var nitProveedor = selectedOption.data('nit').toString();
+                var nrcProveedor = selectedOption.data('nrc').toString();
+                var nombreProveedor = selectedOption.data('nombre').toString();
+
+                const compras = {
+                    flag: "create",
+                    idDocCompra: null,
+                    fechaEmision: $("#txtFechaDocumento").val(),
+                    fechaPresentacion: $("#txtFechaDeclarar").val(),
+                    claseDocumento: $("#txtClase").val(),
+                    tipoDocumento: $("#txtTipoDoc").val(),
+                    numeroDocumento: $("#txtNumeroDocumento").val(),
+                    nitProveedor: nitProveedor,
+                    nrcProveedor: nrcProveedor,
+                    nombreProveedor: nombreProveedor,
+                    internasExentas: $("#txtComprasExentas").val(),
+                    internacionalesExentasY_O_NSujetos: null,
+                    importacionesY_O_NSujetos: null,
+                    internasGravadas: $("#txtComprasExentas").val(),
+                    internacionesGravadasBienes: null,
+                    importacionesGravadasBienes: null,
+                    importacionesGravadasServicios: null,
+                    creditoFiscal: $("#txtTotalCredito").val(),
+                    totalCompras: $("#txtTotalCompra").val(),
+                    duiProveedor: "",
+                    tipoOperacion: $("#txtTipoOperacion").val(),
+                    clasificacion: $("#txtCasificacion").val(),
+                    tipoCostoGasto: $("#txtGastoCosto").val(),
+                    numeroAnexo: "3",
+                    posteado: false,
+                    anulado: false,
+                    eliminado: false,
+                    idCliente: idCliente,
+                    combustible: combustible,
+                    numSerie: $("#txtSerie").val()
+                };
+
+                $.ajax({
+                    url: "/Compras/CrearCompras",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify([compras]), // Enviar como un array
+                    success: function (data) {
+
+                        if (data.success) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Compra registrada",
+                                text: data.message,
+                                customClass: {
+                                    popup: 'custom-border'
+                                }
+                            });
+                            $("#formCompras")[0].reset(); // Limpiar formulario
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error al registrar",
+                                text: data.message,
+                                customClass: {
+                                    popup: 'custom-border'
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Ocurrió un error al intentar registrar la compra.",
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                        console.error("Error:", error);
+                    }
+                });
+            }
+
+
+            
+        });
+    });
+</script>

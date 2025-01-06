@@ -1,0 +1,392 @@
+﻿
+@{
+    ViewData["Title"] = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Clientes</h1>
+<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Formulario</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Importar Excel</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="card">
+            <div class="card-header">
+                <h5>Registro de Cliente</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="mb-3">Tipo</h5>
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Juridico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Natural</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <form id="formcliente" class="was-validated">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtRazonSocialJuridica" class="form-label">Razon Social</label>
+                                        <input class="form-control form-control-sm" id="txtRazonSocialJuridica"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtNombrecomercialJuridica" class="form-label">Nombre Comercial</label>
+                                        <input class="form-control form-control-sm" id="txtNombrecomercialJuridica"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtRepresentanteJuridico" class="form-label">Representante Legal</label>
+                                        <input class="form-control form-control-sm" id="txtRepresentanteJuridico" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtDuiRepresentateJuridico" class="form-label">DUI Representante</label>
+                                        <input class="form-control form-control-sm" id="txtDuiRepresentateJuridico" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtClienteJuridico" class="form-label">Telefono Cliente</label>
+                                        <input class="form-control form-control-sm" id="txtClienteJuridico" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtCelularJuridico" class="form-label">Celular Cliente</label>
+                                        <input class="form-control form-control-sm" id="txtCelularJuridico" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtNrcJuridico" class="form-label">NRC cliente</label>
+                                        <input class="form-control form-control-sm" id="txtNrcJuridico"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtNitJuridico" class="form-label">NIT cliente</label>
+                                        <input class="form-control form-control-sm" id="txtNitJuridico" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end mb-3">
+                                <button type="button" id="btnRegistrar" class="btn btn-primary mb-4">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <form id="formclienteNatural" class="was-validated">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtNombreNatural" class="form-label">Nombres</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtNombreNatural"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtApellidosNatural" class="form-label">Apellidos</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtApellidosNatural"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtNombreComercialNatural" class="form-label">Nombre Comercial</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtNombreComercialNatural" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="txtDuiNatural" class="form-label">DUI</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtDuiNatural"
+                                               placeholder="Dato requerido" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtClienteTelNatural" class="form-label">Telefono</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtClienteTelNatural" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtCelularNatural" class="form-label">Celular</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtCelularNatural" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtNrcNatural" class="form-label">NRC</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtNrcNatural"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="txtNitNatural" class="form-label">NIT</label>
+                                        <input class="form-control form-control-sm is-invalid" id="txtNitNatural" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end mb-3">
+                                <button type="button" id="btnRegistrarNarural" class="btn btn-primary mb-4">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <div class="card">
+            <div class="card-header">
+                <h5>Importar clientees</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-3 mb-3">
+                        <div class="text-center">
+                            <label>Excel</label>
+                        </div>
+                        <div class="text-center mb-3">
+                            <a href="/Auxiliares/PlantillaClientes" class="btn btn-primary">
+                                Descargar Plantilla
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-9 mb-3">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <label for="archivo">Cargar Plantilla (Excel)</label>
+                            <div class="input-group mb-3">
+                                <input type="file" id="archivo" name="archivo" class="form-control" accept=".xlsx,.xls" required />
+                                <button type="button" id="btnImportarArchivo" class="btn btn-primary">Ejecutar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var idCliente = '@ViewData["IdCliente"]';
+
+    document.getElementById('btnImportarArchivo').addEventListener('click', function () {
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData(form);
+
+        var fileInput = $("#archivo")[0];
+        if (fileInput.files.length === 0) {
+            Swal.fire({
+                icon: "warning",
+                title: "No se encuentra ningun archivo",
+                showConfirmButton: true,
+                customClass: {
+                    popup: 'custom-border'
+                }
+            });
+            event.preventDefault();
+        } else {
+            fetch('/Auxiliares/CargarClientes', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Clientes ingresados correctamente",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: data.message || "No se pudieron ingresar los Clientes",
+                            showConfirmButton: true,
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                    }
+                    document.getElementById('archivo').value = '';
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al cargar el archivo",
+                        text: error.message,
+                        showConfirmButton: true,
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                });
+        }
+    });
+
+    $(document).ready(function () {
+
+        $("#btnRegistrar").click(function () {
+            const cliente = {
+                flag: "create",
+                nombres: null,
+                apellidos: null,
+                personaJuridica: true,
+                nombreRazonSocial: $("#txtRazonSocialJuridica").val(),
+                nombreComercial: $("#txtNombrecomercialJuridica").val(),
+                duiCliente: null,
+                representanteLegal: $("#txtRepresentanteJuridico").val(),
+                duiRepresentanteLegal: $("#txtDuiRepresentateJuridico").val(),
+                telefonoCliente: $("#txtClienteJuridico").val(),
+                celular: $("#txtCelularJuridico").val(),
+                nrc: $("#txtNrcJuridico").val(),
+                nitcliente: $("#txtNitJuridico").val(),
+                idCliente: idCliente
+            };
+
+            // Validar datos requeridos
+            if (!cliente.nombreRazonSocial || !cliente.nombreComercial || !cliente.nrc) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Campos requeridos",
+                    text: "Por favor, completa los campos obligatorios.",
+                    customClass: {
+                        popup: 'custom-border'
+                    }
+                });
+                return;
+            }
+
+            // Enviar datos al servidor
+            $.ajax({
+                url: "/Auxiliares/CrearClientes",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify([cliente]), // Enviar como un array
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "cliente registrado",
+                            text: data.message,
+                        });
+                        $("#formcliente")[0].reset(); // Limpiar formulario
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error al registrar",
+                            text: data.message,
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Ocurrió un error al intentar registrar el cliente.",
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                    console.error("Error:", error);
+                }
+            });
+        });
+
+        $("#btnRegistrarNarural").click(function () {
+            const cliente = {
+                flag: "create",
+                nombres: $("#txtNombreNatural").val(),
+                apellidos: $("#txtApellidosNatural").val(),
+                personaJuridica: false,
+                nombreRazonSocial: null,
+                nombreComercial: $("#txtNombreComercialNatural").val(),
+                duiCliente: $("#txtDuiNatural").val(),
+                representanteLegal: null,
+                duiRepresentanteLegal: null,
+                telefonoCliente: $("#txtClienteTelNatural").val(),
+                celular: $("#txtCelularNatural").val(),
+                nrc: $("#txtNrcNatural").val(),
+                nitcliente: $("#txtNitNatural").val(),
+                idCliente: idCliente
+            };
+            if (!cliente.nombres || !cliente.apellidos || !cliente.duiCliente) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Campos requeridos",
+                    text: "Por favor, completa los campos obligatorios.",
+                    customClass: {
+                        popup: 'custom-border'
+                    }
+                });
+                return;
+            }
+            $.ajax({
+                url: "/Auxiliares/CrearClientes",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify([cliente]),
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "cliente registrado",
+                            text: data.message,
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                        $("#formclienteNatural")[0].reset();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error al registrar",
+                            text: data.message,
+                            customClass: {
+                                popup: 'custom-border'
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Ocurrió un error al intentar registrar el cliente.",
+                        customClass: {
+                            popup: 'custom-border'
+                        }
+                    });
+                    console.error("Error:", error);
+                }
+            });
+        });
+    });
+</script>
+

@@ -1,0 +1,170 @@
+﻿
+@{
+    Layout = null;
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+    <title>Login | Light Able Admin & Dashboard Template</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description"
+          content="Light Able admin and dashboard template offer a variety of UI elements and pages, ensuring your admin panel is both fast and effective." />
+    <meta name="author" content="phoenixcoded" />
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="~/assets/images/favicon.svg" type="image/x-icon" />
+    <!-- [Google Font : Public Sans] icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="~/assets/fonts/tabler-icons.min.css">
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="~/assets/fonts/feather.css">
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="~/assets/fonts/fontawesome.css">
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="~/assets/fonts/material.css">
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="~/assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="~/assets/css/style-preset.css">
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <div class="auth-main v2">
+        <div class="bg-overlay bg-dark"></div>
+        <div class="auth-wrapper">
+            <div class="auth-form">
+                <div class="card my-5 mx-3">
+                    <div class="card-body">
+                        <h4 class="f-w-500 mb-1" id="form-title">Registrate</h4>
+                        <!-- Formulario -->
+                        <form id="login-register-form">
+
+                            <!-- Formulario de Registro -->
+                            <div id="register-fields">
+                                <input type="text" class="form-control" name="name" placeholder="Nombre completo" required>
+                                <input type="text" class="form-control mt-3" name="lastname" placeholder="Apellido" required>
+                                <input type="email" class="form-control mt-3" name="email" placeholder="Correo electrónico" required>
+                                <input type="text" class="form-control mt-3" name="username" placeholder="Nombre de usuario" required>
+                                <input type="password" class="form-control mt-3" name="password" id="password" placeholder="Contraseña" required>
+                                <input type="password" class="form-control mt-3" name="confirm-password" id="confirm-password" placeholder="Confirmar contraseña" required>
+                            </div>
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary" id="submit-btn">Iniciar</button>
+                            </div>
+                        </form>
+
+                        <!-- Cambiar entre Login y Registro -->
+                        <div class="text-center mt-3">
+                            <span id="toggle-text">¿Ya tienes usuario?</span>
+                            <a href="/Login/Login" id="toggle-link" class="text-primary">Aquí</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+    <!-- Required Js -->
+    <script src="~/assets/js/plugins/popper.min.js"></script>
+    <script src="~/assets/js/plugins/simplebar.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/assets/js/fonts/custom-font.js"></script>
+    <script src="~/assets/js/pcoded.js"></script>
+    <script src="~/assets/js/plugins/feather.min.js"></script>
+
+    <script>layout_change('light');</script>
+
+    <script>layout_sidebar_change('light');</script>
+
+    <script>change_box_container('false');</script>
+
+    <script>layout_caption_change('true');</script>
+
+    <script>layout_rtl_change('false');</script>
+
+    <script>preset_change("preset-1");</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('login-register-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Escuchar el evento de envío del formulario
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevenir el envío tradicional del formulario
+
+                // Obtener los valores de los campos
+                const formData = new FormData(form);
+                const data = {
+                    nombre: formData.get('name'),
+                    apellido: formData.get('lastname'),
+                    email: formData.get('email'),
+                    usuario: formData.get('username'),
+                    password: formData.get('password'),
+                    confirmPassword: formData.get('confirm-password')
+                };
+
+                // Validación básica para asegurarse que las contraseñas coinciden
+                if (data.password !== data.confirmPassword) {
+                    alert('Las contraseñas no coinciden.');
+                    return;
+                }
+
+                // Deshabilitar el botón de envío para prevenir múltiples envíos
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Enviando...';
+
+                // Enviar la solicitud POST a tu endpoint de registro
+                fetch('/Login/CrearUsuario', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json()) // Asumimos que el servidor devuelve un JSON
+                    .then(data => {
+                        submitBtn.disabled = false;
+                        if (data.message > 0) {
+                            alert('¡Registro exitoso!');
+                            window.location.href = '/Login/Login'; // Redirige al login después del registro
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        alert('Hubo un error, por favor intenta nuevamente.');
+                    });
+            });
+        });
+    </script>
+</body>
+<!-- [Body] end -->
+
+</html>
